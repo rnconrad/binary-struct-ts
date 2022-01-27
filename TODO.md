@@ -1,0 +1,15 @@
+- Support endianness selection for BinaryStruct
+  - It would be nice to have a decorator for this, but due to the way decorators are applied, it might make more sense to have separate prototypes or to use some other mechanism
+  - Otherwise, the property accessors could be built in a class decorator, but this would require a decorator on all BinaryStruct definitions
+  - Could also support endianness selection on individual properties regardless
+- Support binary arrays
+  - It would be nice to support c-style indeterminate length arrays where the length is determined at run time based on the underlying ArrayBuffer
+- Allow accessing the underlying DataView directly or via a method/accessor
+  - It would also be nice to have convenience methods to get e.g. a TypedArray with a certain offset/length within the struct
+- Support padding schemes
+  - Packed (current behavior)
+  - E.g. gcc/clang-like automatic padding scheme via a decorator
+  - Some other (custom?) scheme
+- Consider freezing the instance and/or prototype after construction
+- Consider a different approach for static/member functions (e.g. copy, toJSON)
+  - These are kept outside of the prototype to avoid conflicts with user-defined struct members, but this also leads to a less than ideal usage pattern for these methods
