@@ -7,15 +7,18 @@ raw binary data structures.
 
 ### Basic Usage
 ```ts
+import * from "binary-struct-ts";
+
+@binaryStruct()
 class ExampleStruct extends BinaryStruct
 {
-  @BinaryField(BinaryType.Int32)
+  @binaryField(BinaryType.Int32)
   id: number;
-  @BinaryField(BinaryType.Float32)
+  @binaryField(BinaryType.Float32)
   value: number;
-  @BinaryField(BinaryType.Uint8)
+  @binaryField(BinaryType.Uint8)
   isDeleted: number;
-  @BinaryField(BinaryType.BinaryStruct, AnotherStruct)
+  @binaryField(BinaryType.BinaryStruct, AnotherStruct)
   details: AnotherStruct;
 };
 
@@ -25,7 +28,7 @@ data.value = 3.14;
 data.details = anotherStructInstance;
 ```
 
-### Reading Structured Data
+### Read Structured Data
 ```ts
 const data = new ExampleStruct(arrayBuffer, offsetBytes);
 id = data.id;
@@ -37,5 +40,22 @@ detailsValue = data.details.value;
 ```ts
 const src = new ExampleStruct(arrayBuffer, srcOffsetBytes);
 const dst = new ExampleStruct(arrayBuffer, dstOffsetBytes);
-copy.call(dst, src);
+dst.copyFrom(src);
+```
+
+### Additional Options
+```ts
+@binaryStruct({ endianness: Endianness.BigEndian,
+  packingStrategy: new AlignedPackingStrategy(4) })
+class ExampleStruct extends BinaryStruct
+{
+  @binaryField(BinaryType.Int32)
+  id: number;
+  @binaryField(BinaryType.Float32)
+  value: number;
+  @binaryField(BinaryType.Uint8)
+  isDeleted: number;
+  @binaryField(BinaryType.BinaryStruct, AnotherStruct)
+  details: AnotherStruct;
+};
 ```

@@ -1,5 +1,5 @@
 import { TestStruct, NestedStruct, testStructFields } from "./testStructs"
-import { BinaryStruct, sizeOf, toJSON, BinaryStructConstructor } from "../src/BinaryStruct";
+import { BinaryStruct, sizeOf, BinaryStructConstructor } from "../src/BinaryStruct";
 import crypto from "crypto";
 
 function checkStructJsonObj(struct: BinaryStruct, jsonObj: any)
@@ -19,20 +19,20 @@ function checkStructJsonObj(struct: BinaryStruct, jsonObj: any)
   }
 }
 
-it("calls toJSON on TestStruct and gets the correct object", () =>
+it("calls toJSON TestStruct and gets the correct object", () =>
 {
   const buffer = new ArrayBuffer(sizeOf(TestStruct));
   const struct = new TestStruct(buffer);
   crypto.randomFillSync(Buffer.from(buffer));
 
-  checkStructJsonObj(struct, toJSON.call(struct));
+  checkStructJsonObj(struct, struct.toJSON());
 });
 
-it("calls toJSON on NestedStruct and gets the correct object", () =>
+it("calls toJSON NestedStruct and gets the correct object", () =>
 {
   const buffer = new ArrayBuffer(sizeOf(NestedStruct));
   const struct = new NestedStruct(buffer);
   crypto.randomFillSync(Buffer.from(buffer));
 
-  checkStructJsonObj(struct, toJSON.call(struct));
+  checkStructJsonObj(struct, struct.toJSON());
 });

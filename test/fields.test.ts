@@ -1,6 +1,5 @@
 import { TestStruct, NestedStruct, testStructFields } from "./testStructs"
-import { BinaryStruct, sizeOf, copy, toJSON } from "../src/BinaryStruct";
-import crypto from "crypto";
+import { sizeOf } from "../src/BinaryStruct";
 
 it("sets TestStruct field values and reads back the set values", () =>
 {

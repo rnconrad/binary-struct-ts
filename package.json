@@ -1,5 +1,5 @@
 {
-  "name": "binarystruct-ts",
+  "name": "binary-struct-ts",
   "version": "1.0.0",
   "description": "Binary data structure library",
   "type": "module",

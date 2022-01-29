@@ -1,23 +1,24 @@
-import { BinaryField, BinaryStruct, BinaryType, sizeOf, toJSON } from "./BinaryStruct";
+import { binaryField, BinaryStruct, binaryStruct, BinaryType, sizeOf } from "./BinaryStruct";
 import fs from "fs";
 
-class testStruct extends BinaryStruct
+@binaryStruct()
+class TestStruct extends BinaryStruct
 {
-  @BinaryField(BinaryType.Int32)
+  @binaryField(BinaryType.Int32)
   id: number;
-  @BinaryField(BinaryType.Int32)
+  @binaryField(BinaryType.Int32)
   parentId: number;
-  @BinaryField(BinaryType.Float32)
+  @binaryField(BinaryType.Float32)
   score: number;
-  @BinaryField(BinaryType.Int32)
+  @binaryField(BinaryType.Int32)
   timestamp: number;
-  @BinaryField(BinaryType.Uint8)
+  @binaryField(BinaryType.Uint8)
   isNew: number;
-  @BinaryField(BinaryType.Uint8)
+  @binaryField(BinaryType.Uint8)
   isCreated: number;
-  @BinaryField(BinaryType.Uint8)
+  @binaryField(BinaryType.Uint8)
   padding0: number;
-  @BinaryField(BinaryType.Uint8)
+  @binaryField(BinaryType.Uint8)
   padding1: number;
 };
 
@@ -191,13 +192,13 @@ class manualStructTypedArrays
 
 function generate(count: number)
 {
-  const size = sizeOf(testStruct);
+  const size = sizeOf(TestStruct);
   const buf = new ArrayBuffer(size * count);
   const items = [];
 
   for (let i = 0; i < count; i++)
   {
-    const struct = new testStruct(buf, i * size);
+    const struct = new TestStruct(buf, i * size);
     struct.id = Math.random() * 0xFFFFFFFF;
     struct.parentId = Math.random() * 0xFFFFFFFF;
     struct.score = Math.random();
@@ -205,7 +206,7 @@ function generate(count: number)
     struct.isNew = Math.random() * 0xFF;
     struct.isCreated = Math.random() * 0xFF;
 
-    items.push(toJSON.call(struct));
+    items.push(struct.toJSON());
   }
 
   fs.writeFileSync("./out.json", JSON.stringify(items), { encoding: "utf8" });
@@ -219,16 +220,13 @@ function loadJson(contents: string)
 
 function loadBinary(contents: Buffer)
 {
-  const size = sizeOf(testStruct);
+  const size = sizeOf(TestStruct);
   const count = contents.byteLength / size;
   const items = [];
 
   for (let i = 0; i < count; i++)
   {
-    const struct = new testStruct(contents.buffer, i * size);
-
-    // items.push(toJSON.call(struct));
-
+    const struct = new TestStruct(contents.buffer, i * size);
     items.push(
     {
       id: struct.id,
@@ -247,7 +245,7 @@ function loadBinary(contents: Buffer)
 
 function loadBinaryManual(contents: Buffer)
 {
-  const size = sizeOf(testStruct);
+  const size = sizeOf(TestStruct);
   const count = contents.byteLength / size;
   const items = [];
 
@@ -272,7 +270,7 @@ function loadBinaryManual(contents: Buffer)
 
 function loadBinaryManualTypedArrays(contents: Buffer)
 {
-  const size = sizeOf(testStruct);
+  const size = sizeOf(TestStruct);
   const count = contents.byteLength / size;
   const items = [];
 
