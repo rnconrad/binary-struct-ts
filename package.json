@@ -14,6 +14,7 @@
   },
   "author": "Ryan Conrad",
   "license": "MIT",
+  "repository": "github:rnconrad/binary-struct-ts",
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.12",
