@@ -1,4 +1,4 @@
-import { binaryField, BinaryStruct, binaryStruct, BinaryType, sizeOf } from "./BinaryStruct";
+import { binaryField, BinaryStruct, binaryStruct, BinaryType, sizeOf } from "../src/BinaryStruct";
 import fs from "fs";
 
 @binaryStruct()

@@ -7,7 +7,7 @@ raw binary data structures.
 
 ### Basic Usage
 ```ts
-import * from "binary-struct-ts";
+import { BinaryStruct, BinaryType, sizeOf, binaryStruct, binaryField } from "binary-struct-ts";
 
 @binaryStruct()
 class ExampleStruct extends BinaryStruct

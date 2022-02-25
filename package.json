@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "Binary data structure library",
   "type": "module",
-  "main": "./dist/src/BinaryStruct.js",
-  "module": "./dist/src/BinaryStruct.js",
-  "types": "./dist/src/BinaryStruct.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/src/exports.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build-benchmark": "tsc && rollup -o ./dist/benchmark.js ./dist/src/benchmark.js",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "build": "tsc && rollup -o ./dist/index.js ./dist/src/exports.js",
+    "build-benchmark": "tsc && rollup -o ./dist/benchmark.js ./dist/benchmark/benchmark.js",
+    "test": "npm run build && node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "benchmark": "node ./dist/benchmark.js"
   },
   "author": "Ryan Conrad",
@@ -20,5 +20,6 @@
     "jest": "^27.4.7",
     "rollup": "^2.66.1",
     "typescript": "^4.5.5"
-  }
+  },
+  "files": ["*", "src/*", "benchmark/*", "test/*", "dist/src", "dist/index.js"]
 }
